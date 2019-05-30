@@ -18,6 +18,13 @@ I'm not responsible for your actions, this is script is provided as-is, do not u
 
 Based on [trustedsec's](https://github.com/trustedsec/nps_payload) implementation.
 
+## TODO
+
+* Add a better/cleaner payload.
+* Add some sort of argument parsing.
+* Add more options.
+* Refactor the code.
+
 ## License
 
 Code released under the [MIT](LICENSE).
