@@ -1,16 +1,16 @@
 # mspayload
 
-> Windows AV/AppLocker bypass via msbuild and nps.
+> Windows AV/AppLocker bypass via msbuild.
 
 ## Usage
 
 `python3 mspayload.py`
 
-Run the script to create a `mspayload_nps.xml` file with the appropriated payload.
+Run the script to create a `mspayload_nps.xml` file with the appropriated payload. (Only reverse_tcp is available at this time.)
 
-Upload it to the target and run: `msbuild.exe mspayload_nps.xml` to start the build, make sure to setup your listener beforehand.
+Upload it to the target and run `C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe mspayload_nps.xml` to start the build, make sure to setup your listener before running the command.
 
-If `msbuild.exe` is not available, use the absolute path: `C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe`
+Compatible with `meterpreter` payloads.
 
 ## Disclaimer
 
